@@ -30,11 +30,11 @@
 
 var swapPairs = function(head) {
     if (!head || !head.next) return head;
-    let ans = head.next;
-    let curr = head.next;
-    let prev = head
+    var ans = head.next;
+    var curr = head.next;
+    var prev = head
     while (curr !== null) {
-        const next = curr.next;
+        var next = curr.next;
         curr.next = prev;
 
         if (next && next.next) {

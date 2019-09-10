@@ -67,20 +67,20 @@
  * @return {ListNode}
  */
 var getIntersectionNode = function(headA, headB) {
-    let sign = headA;
+    var sign = headA;
     while (true) {
-        if (!sign.next) {
+        if (!sign.next) {232
             sign.next = headA
             break
         }
         sign = sign.next;
     }
 
-    let A = headA;
-    let B = headB;
+    var A = headA;
+    var B = headB;
     while (A!==B) {
-        A = A.next;
-        B = B.next.next
+        A = A.next.next;
+        B = B.next
     }
     return A;
 };
