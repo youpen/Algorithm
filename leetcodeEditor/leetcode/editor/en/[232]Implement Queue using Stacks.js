@@ -34,7 +34,8 @@
  * Initialize your data structure here.
  */
 var MyQueue = function() {
-    this.s = [];
+    this.s1 = [];
+    this.s2 = [];
 };
 
 /**
@@ -43,13 +44,7 @@ var MyQueue = function() {
  * @return {void}
  */
 MyQueue.prototype.push = function(x) {
-    this.s.push(x)
-    // var tempStack = [];
-    // while (true) {
-    //   var curr = tempStack.pop()
-    //   if (!curr) break
-    //   tempStack.push(curr)
-    // }
+    this.s1.push(x);
 };
 
 /**
@@ -57,19 +52,17 @@ MyQueue.prototype.push = function(x) {
  * @return {number}
  */
 MyQueue.prototype.pop = function() {
-  var tempStack = [];
-  while (true) {
-    var curr = this.s.pop()
-    if (!curr) break
-    tempStack.push(curr)
-  }
-  var ans = tempStack.pop();
-  while (true) {
-    var curr = tempStack.pop();
-    if (!curr) break;
-    this.s.push(curr)
-  }
-  return ans
+    const temp = this.s2.pop();
+    if (temp) {
+        return temp
+    } else {
+        while (true) {
+            const curr = this.s1.pop();
+            if (!curr) break
+            this.s2.push(curr)
+        }
+        return this.s2.pop()
+    }
 };
 
 /**
@@ -77,15 +70,15 @@ MyQueue.prototype.pop = function() {
  * @return {number}
  */
 MyQueue.prototype.peek = function() {
-    var tempStack = []
-    var copy = [].concat(this.s)
-    while (true) {
-      var curr = copy.pop()
-      if (!curr) break;
-      tempStack.push(curr)
+    if (this.s2[this.s2.length-1]) {
+        return this.s2[this.s2.length-1]
     }
-    var front = tempStack.pop();
-    return front
+    while (true) {
+        const curr = this.s1.pop();
+        if (!curr) break
+        this.s2.push(curr)
+    }
+    return this.s2[this.s2.length-1]
 };
 
 /**
@@ -93,9 +86,7 @@ MyQueue.prototype.peek = function() {
  * @return {boolean}
  */
 MyQueue.prototype.empty = function() {
-  var front = this.s.pop();
-  this.s.push(front)
-  return !front
+    return this.s1.length===0 && this.s2.length===0
 };
 
 /** 
