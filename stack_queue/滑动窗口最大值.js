@@ -6,8 +6,8 @@ function getMaxWindow(arr, w) {
     if (recordQueue[0] <= i-w) {
       recordQueue.shift()
     }
-    while (recordQueue.length !== 0 && arr[recordQueue[0]] <= arr[i]) {
-        recordQueue.shift()
+    while (recordQueue.length !== 0 && arr[recordQueue[recordQueue.length-1]] <= arr[i]) {
+        recordQueue.pop()
     }
     recordQueue.push(i)
     // 记录当前窗最大值
