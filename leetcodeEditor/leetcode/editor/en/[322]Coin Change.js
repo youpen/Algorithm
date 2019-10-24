@@ -27,20 +27,20 @@
  * @return {number}
 */
 var coinChange = function(coins, amount) {
-    if (!coinChange.memo) coinChange.memo = {}
-    if (coinChange.memo[amount]) return coinChange.memo[amount]
-    if (amount === 0) return 0
-    let ans = Infinity
-    for (let i = 0; i < coins.length; i++) {
-        const currCoin = coins[i]
-        if (amount - currCoin >= 0) {
-            const res = coinChange(coins, amount - currCoin)
-            if (res === -1) continue
-            ans = Math.min(ans, res+1)
-            coinChange.memo[amount] = ans
+    const opt = new Array(amount + 1);
+    opt[0] = 0
+    for (let i = 0; i <= amount; i++) {
+        let tempArr = []
+        let tempIndex = undefined
+        for (let j = 0; j < coins.length; j++) {
+            const min = opt[i - coins[j]]+1
+            if (opt[i - coins[j]]) {
+                tempArr.push(min)
+                tempIndex = undefined
+            }
         }
+        opt[i] = Math.min(...tempArr)
     }
-    console.log(ans)
-    return ans === Infinity ? -1 : ans
+    return opt[amount] === Number.MAX_VALUE ? -1 : opt[amount]
 };
 //leetcode submit region end(Prohibit modification and deletion)
