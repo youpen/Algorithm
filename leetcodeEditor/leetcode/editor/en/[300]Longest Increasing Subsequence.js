@@ -27,17 +27,18 @@
 var lengthOfLIS = function(nums) {
     if (nums.length === 0) return 0
     if (nums.length === 1) return 1
+    // 初始化数组全为1
     const opt = []
-    opt[0] = [nums[0]]
-    for (let i = 1; i < nums.length; i++) {
-        if (nums[i-1] > nums[i]) {
-            let end = opt[i-1][opt[i-1].length-1].push(nums[n])
-            end.push(nums[i])
-            opt[i] = [...opt[i-1], end ]
-        } else {
-            opt[i].push([nums[i]])
+    for (let i = 0; i < nums.length; i++) {
+        opt.push(1)
+    }
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
+                opt[i] = Math.max(opt[i], opt[j] + 1)
+            }
         }
     }
-    return opt[opt.length-1].length
+    return Math.max(...opt)
 };
 //leetcode submit region end(Prohibit modification and deletion)
